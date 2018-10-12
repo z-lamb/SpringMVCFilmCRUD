@@ -25,11 +25,7 @@ public class FilmController {
 	public ModelAndView getFilmById(int filmId) {
 		ModelAndView mv = new ModelAndView();
 		Film f = null;
-		try {
-			f = filmDAO.getFilmById(filmId);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		f = filmDAO.getFilmById(filmId);
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/result.jsp");
 		return mv;
