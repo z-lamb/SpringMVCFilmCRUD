@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-import com.skilldistillery.film.dao.DatabaseAccessorObject;
+import com.skilldistillery.film.dao.FilmDAOImpl;
 import com.skilldistillery.film.entities.Film;
 
 public class FilmQueryLookUp {
@@ -15,7 +15,7 @@ public class FilmQueryLookUp {
 	 * the proper dao is called and passes the id through to it
 	 * this is wrapped in a try/catch so that if an exception is thrown it will be caught which will then print the stack trace
 	 */
-	protected Film lookUpFilmById(DatabaseAccessorObject dao, Scanner input, String filmId, Film filmRequested) {
+	protected Film lookUpFilmById(FilmDAOImpl dao, Scanner input, String filmId, Film filmRequested) {
 		if (filmId.matches("^[0-9]*$")) {
 			int parseFilmId = Integer.parseInt(filmId);
 			try {
@@ -33,7 +33,7 @@ public class FilmQueryLookUp {
 	 * the proper dao is called and passes the id through to it
 	 * this is wrapped in a try/catch so that if an exception is thrown it will be caught which will then print the stack trace
 	 */
-	protected List<Film> lookUpFilmByKeyword(DatabaseAccessorObject dao, Scanner input, String keyword, List<Film> keywordFilms) {
+	protected List<Film> lookUpFilmByKeyword(FilmDAOImpl dao, Scanner input, String keyword, List<Film> keywordFilms) {
 		try {
 			keywordFilms = dao.getFilmsByKeyword(keyword);
 		} catch (SQLException e) {
