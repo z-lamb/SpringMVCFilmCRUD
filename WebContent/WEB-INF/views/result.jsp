@@ -16,7 +16,7 @@
         <li>${film.id}</li>
         <li>${film.title}</li>
         <li>${film.description}</li>
-        <li>${film.release_year}</li>
+        <li>${film.releaseYear}</li>
         <li>${film.rating}</li>
       </ul>
     </c:when>
