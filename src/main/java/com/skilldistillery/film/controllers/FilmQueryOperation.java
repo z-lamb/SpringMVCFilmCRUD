@@ -3,7 +3,7 @@ package com.skilldistillery.film.controllers;
 import java.util.List;
 import java.util.Scanner;
 
-import com.skilldistillery.film.dao.DatabaseAccessorObject;
+import com.skilldistillery.film.dao.FilmDAOImpl;
 import com.skilldistillery.film.entities.Film;
 
 /*
@@ -24,7 +24,7 @@ public class FilmQueryOperation {
 	/*
 	 * Declared database accessor object and initialized to null as to not create a new item on the heap unless it is needed
 	 */
-	private DatabaseAccessorObject dao = null;
+	private FilmDAOImpl dao = null;
 
 	/*
 	 * Simple method to start the operation of looking up the query
@@ -71,7 +71,7 @@ public class FilmQueryOperation {
 		 */
 		if (menuSelection != "0") {
 			if (dao == null) {
-				dao = new DatabaseAccessorObject();
+				dao = new FilmDAOImpl();
 				lookUp = new FilmQueryLookUp();
 			}
 		}
