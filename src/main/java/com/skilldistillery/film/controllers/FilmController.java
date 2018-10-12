@@ -19,11 +19,10 @@ public class FilmController {
 		this.filmDAO = filmDAO;
 	}
 
-	@RequestMapping(path = "GetFilmData.do", params = "id", method = RequestMethod.GET)
+	@RequestMapping(path = "GetFilmData.do", params = "filmId", method = RequestMethod.GET)
 	public ModelAndView getFilmById(int filmId) {
 		ModelAndView mv = new ModelAndView();
-		Film f = null;
-		f = filmDAO.getFilmById(filmId);
+		Film f = filmDAO.getFilmById(filmId);
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
