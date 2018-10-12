@@ -1,7 +1,5 @@
 package com.skilldistillery.film.controllers;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.skilldistillery.film.dao.FilmDAOImpl;
+import com.skilldistillery.film.dao.FilmDAO;
 import com.skilldistillery.film.entities.Film;
 
 @Controller
 public class FilmController {
 	@Autowired
-	private FilmDAOImpl filmDAO;
+	private FilmDAO filmDAO;
 
-	public void setFilmDAO(FilmDAOImpl filmDAO) {
+	public void setFilmDAO(FilmDAO filmDAO) {
 		this.filmDAO = filmDAO;
 	}
 
@@ -27,7 +25,7 @@ public class FilmController {
 		Film f = null;
 		f = filmDAO.getFilmById(filmId);
 		mv.addObject("film", f);
-		mv.setViewName("WEB-INF/result.jsp");
+		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
 	}
 
