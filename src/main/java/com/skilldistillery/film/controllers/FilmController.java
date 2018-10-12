@@ -33,7 +33,7 @@ public class FilmController {
 		filmDAO.addFilm(f);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("result");
-		return null;
+		return mv;
 	}
 
 	@RequestMapping(path = "NewFilm.do", method = RequestMethod.POST)
