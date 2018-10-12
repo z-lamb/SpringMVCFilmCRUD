@@ -15,7 +15,7 @@ public class FilmDAOImpl implements FilmDAO {
 	/*
 	 * Database address, username, password
 	 */
-	private static final String URL = "jdbc:mysql://localhost:3306/sdvid";
+	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
 	private static final String user = "student";
 	private static final String pass = "student";
 	/*
