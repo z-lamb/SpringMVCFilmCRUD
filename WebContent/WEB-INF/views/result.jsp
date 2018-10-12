@@ -13,11 +13,11 @@
   <c:choose>
     <c:when test="${! empty film}">
       <ul>
-        <li>${film.id}</li>
-        <li>${film.title}</li>
-        <li>${film.description}</li>
-        <li>${film.releaseYear}</li>
-        <li>${film.rating}</li>
+        <li><strong>ID:</strong> ${film.id}</li>
+        <li><strong>Title:</strong> ${film.title}</li>
+        <li><strong>Description:</strong> ${film.description}</li>
+        <li><strong>Release Year:</strong> ${film.releaseYear}</li>
+        <li><strong>Rating:</strong> ${film.rating}</li>
       </ul>
     </c:when>
     <c:otherwise>
