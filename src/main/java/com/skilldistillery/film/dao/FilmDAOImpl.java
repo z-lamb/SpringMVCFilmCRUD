@@ -379,7 +379,7 @@ public class FilmDAOImpl implements FilmDAO {
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setShort(3, film.getReleaseYear());
-			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(4, 1);
 			stmt.setInt(5, film.getRentalDuration());
 			stmt.setDouble(6, film.getRentalRate());
 			stmt.setInt(7, film.getLength());
