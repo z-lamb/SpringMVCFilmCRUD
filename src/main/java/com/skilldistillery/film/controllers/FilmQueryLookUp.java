@@ -1,6 +1,5 @@
 package com.skilldistillery.film.controllers;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,11 +17,7 @@ public class FilmQueryLookUp {
 	protected Film lookUpFilmById(FilmDAOImpl dao, Scanner input, String filmId, Film filmRequested) {
 		if (filmId.matches("^[0-9]*$")) {
 			int parseFilmId = Integer.parseInt(filmId);
-			try {
-				filmRequested = dao.getFilmById(parseFilmId);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			filmRequested = dao.getFilmById(parseFilmId);
 		}
 		return filmRequested;
 	}
@@ -34,11 +29,7 @@ public class FilmQueryLookUp {
 	 * this is wrapped in a try/catch so that if an exception is thrown it will be caught which will then print the stack trace
 	 */
 	protected List<Film> lookUpFilmByKeyword(FilmDAOImpl dao, Scanner input, String keyword, List<Film> keywordFilms) {
-		try {
-			keywordFilms = dao.getFilmsByKeyword(keyword);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		keywordFilms = dao.getFilmsByKeyword(keyword);
 		return keywordFilms;
 	}
 }

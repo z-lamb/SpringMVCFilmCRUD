@@ -30,15 +30,18 @@ public class FilmDAOImpl implements FilmDAO {
 	 * Method to get Film By Id
 	 */
 	@Override
-	public Film getFilmById(int filmId) throws SQLException {
+	public Film getFilmById(int filmId) {
 
 		/*
 		 * Connection to the database and create new reference to a film object to be
 		 * returned
 		 */
 		Film film = null;
-		Connection conn = DriverManager.getConnection(URL, user, pass);
-
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+		
 		/*
 		 * SQL string to be passed to the prepared statement along with the requested ID
 		 * which returns the query If there is a query that is returned it will add each
@@ -47,7 +50,7 @@ public class FilmDAOImpl implements FilmDAO {
 		 */
 		String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating, film.special_features, category.name FROM film JOIN language ON language.id = film.language_id JOIN film_category ON film.id = film_category.film_id JOIN category ON film_category.category_id = category.id WHERE film.id = ?";
 
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, filmId);
 		ResultSet filmResult = stmt.executeQuery();
 
@@ -57,9 +60,19 @@ public class FilmDAOImpl implements FilmDAO {
 			film.setActors(getActorsByFilmId(filmId));
 			film.setConditionList(getFilmConditionByFilmId(filmId));
 		}
-
-		stmt.close();
-		conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return film;
 	}
 
@@ -67,21 +80,25 @@ public class FilmDAOImpl implements FilmDAO {
 	 * Method to get Actor By Id
 	 */
 	@Override
-	public Actor getActorById(int actorId) throws SQLException {
+	public Actor getActorById(int actorId) {
 
 		/*
 		 * Connection to the database and create new reference an actor object to be returned
 		 */
 		Actor actor = null;
-		Connection conn = DriverManager.getConnection(URL, user, pass);
-
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+		
 		/*
 		 * SQL string to be passed to the prepared statement along with the requested ID which returns the query
 		 * If there is a query that is returned it will add each item requested to a new actor object
 		 * After that has finished it will close the Prepared Statement and connection and return the actor object
 		 */
 		String sql = "SELECT id, first_name, last_name FROM actor WHERE id = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, actorId);
 		ResultSet actorResult = stmt.executeQuery();
 		
@@ -92,9 +109,21 @@ public class FilmDAOImpl implements FilmDAO {
 			actor.setFirstName(actorResult.getString("last_name"));
 			actor.setFilms(getFilmsByActorId(actorId));
 		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
-		stmt.close();
-		conn.close();
+		
 		return actor;
 	}
 
@@ -102,21 +131,25 @@ public class FilmDAOImpl implements FilmDAO {
 	 * Method to get Actor By Film Id
 	 */
 	@Override
-	public List<Actor> getActorsByFilmId(int filmId) throws SQLException {
+	public List<Actor> getActorsByFilmId(int filmId) {
 
 		/*
 		 * Connection to the database and create new object to be returned
 		 */
 		List<Actor> actors = new ArrayList<>();
-		Connection conn = DriverManager.getConnection(URL, user, pass);
-
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+		
 		/*
 		 * SQL string to be passed to the prepared statement along with the requested ID which returns the query
 		 * If there is a query that is returned it will add each item requested to a new actor object
 		 * After that has finished it will close the Prepared Statement and connection and return the actor list object
 		 */
 		String sql = "SELECT actor.id, actor.first_name, actor.last_name FROM actor JOIN film_actor ON actor.id = film_actor.actor_id WHERE film_id = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, filmId);
 		ResultSet rs = stmt.executeQuery();
 		
@@ -128,9 +161,19 @@ public class FilmDAOImpl implements FilmDAO {
 
 			actors.add(actor);
 		}
-		
-		stmt.close();
-		conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return actors;
 	}
 
@@ -138,14 +181,18 @@ public class FilmDAOImpl implements FilmDAO {
 	 * Method to get Films By Actor Id
 	 */
 	@Override
-	public List<Film> getFilmsByActorId(int actorId) throws SQLException {
+	public List<Film> getFilmsByActorId(int actorId) {
 
 		/*
 		 * Connection to the database and create new object to be returned
 		 */
 		List<Film> films = new ArrayList<>();
-		Connection conn = DriverManager.getConnection(URL, user, pass);
-
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+		
 		/*
 		 * SQL string to be passed to the prepared statement along with the requested ID
 		 * which returns the query If there is a query that is returned it will add each
@@ -154,7 +201,7 @@ public class FilmDAOImpl implements FilmDAO {
 		 */
 		String sql = "SELECT film.id, title, description, release_year, language.name, rental_duration, rental_rate, length, replacement_cost, rating, special_features, category.name FROM film JOIN film_actor ON film.id = film_actor.film_id JOIN language ON language.id = film.language_id JOIN film_category ON film.id = film_category.film_id JOIN category ON film_category.category_id = category.id WHERE actor_id = ?";
 
-		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, actorId);
 		ResultSet rs = stmt.executeQuery();
 
@@ -163,9 +210,21 @@ public class FilmDAOImpl implements FilmDAO {
 			film = setFilmObject(film, rs);
 			films.add(film);
 		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
-		stmt.close();
-		conn.close();
+		
 		return films;
 	}
 
