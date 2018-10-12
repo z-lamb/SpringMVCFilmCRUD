@@ -32,7 +32,7 @@ public class FilmController {
 	public ModelAndView newFilm(Film f) {
 		filmDAO.addFilm(f);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("result");
+		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
 	}
 
