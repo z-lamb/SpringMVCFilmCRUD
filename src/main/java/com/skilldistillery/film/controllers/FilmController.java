@@ -36,7 +36,7 @@ public class FilmController {
 		return mv;
 	}
 
-	@RequestMapping(path = "NewFilm.do", method = RequestMethod.POST)
+	@RequestMapping(path = "filmAdded.do", method = RequestMethod.POST)
 	public String newFilm(Film f, RedirectAttributes redir) {
 		filmDAO.addFilm(f);
 		redir.addFlashAttribute("film", f);
@@ -46,7 +46,7 @@ public class FilmController {
 	@RequestMapping("filmAdded.do")
 	public ModelAndView filmAdded() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("result");
+		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
 	}
 }
