@@ -56,7 +56,7 @@
 					<li><strong>Replacement Cost:</strong> ${f.replacementCost}</li>
 					<li><strong>Rating:</strong> ${f.rating}</li>
 					<li><strong>Special Features:</strong> ${f.specialFeatures}</li>
-					<form action="UpdateFilm.do?filmId=${film.id}" method="post">
+					<form action="UpdateFilm.do?filmId=${f.id}" method="post">
 						<input type="submit" value="Edit">
 					</form>
 					<form action="DeleteFilm.do?filmId=${f.id}" method="post">
