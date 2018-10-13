@@ -9,8 +9,12 @@
 <title>Film Detail</title>
 </head>
 <body>
+	<a href="index.html">Home Page</a>
 	<h3>Film Detail</h3>
 	<c:choose>
+		<c:when test="${! empty deleteMessage }">
+			${deleteMessage }
+		</c:when>
 		<c:when test="${! empty film}">
 			<ul>
 				<li><strong>ID:</strong> ${film.id}</li>
@@ -34,7 +38,12 @@
 					<br>
 				</c:forEach>
 			</ul>
+				<form action="DeleteFilm.do?filmId=${f.id}" method="post">
+					<input type="submit" value="Delete">
+				</form>
 		</c:when>
+		
+		
 		<c:otherwise>
 			<p>NO FILM FOUND</p>
 		</c:otherwise>
