@@ -12,7 +12,7 @@
 	<h3>Update Film Detail</h3>
 
 	<h4>Please provide the following details:</h4>
-		<form action="NewFilm.do" method="post">
+		<form action="UpdateFilm.do" method="post">
 			<label for="title">Title:</label> <input type="text" name="title" value="${film.title }"><br>
 			<label for="description">Description:</label> <input type="text" name="description" value="${film.description }"><br> 
 			<label for="releaseYear">Release Year:</label> <input type="text" name="releaseYear" size="4" value="${film.releaseYear }"><br> 
