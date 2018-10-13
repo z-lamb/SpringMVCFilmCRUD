@@ -53,12 +53,10 @@ public class FilmDAOImpl implements FilmDAO {
 			 */
 			String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, "
 					+ "film.rental_duration, film.rental_rate, film.length, film.replacement_cost, "
-					+ "film.rating, film.special_features, category.name " 
-					+ "FROM film "
+					+ "film.rating, film.special_features, category.name " + "FROM film "
 					+ "JOIN language ON language.id = film.language_id "
 					+ "JOIN film_category ON film.id = film_category.film_id "
-					+ "JOIN category ON film_category.category_id = category.id " 
-					+ "WHERE film.id = ?";
+					+ "JOIN category ON film_category.category_id = category.id " + "WHERE film.id = ?";
 
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
@@ -277,12 +275,10 @@ public class FilmDAOImpl implements FilmDAO {
 			 */
 			String sql = "SELECT film.id, film.title, film.description, film.release_year, "
 					+ "language.name, film.rental_duration, film.rental_rate, film.length, "
-					+ "film.replacement_cost, film.rating, film.special_features, category.name " 
-					+ "FROM film "
+					+ "film.replacement_cost, film.rating, film.special_features, category.name " + "FROM film "
 					+ "JOIN language ON language.id = film.language_id "
 					+ "JOIN film_category ON film.id = film_category.film_id "
-					+ "JOIN category ON film_category.category_id = category.id " 
-					+ "WHERE title "
+					+ "JOIN category ON film_category.category_id = category.id " + "WHERE title "
 					+ "LIKE ? OR description LIKE ?";
 
 			stmt = conn.prepareStatement(sql);
@@ -468,27 +464,22 @@ public class FilmDAOImpl implements FilmDAO {
 			stmt.setString(10, film.getSpecialFeatures());
 
 			int updateCount = stmt.executeUpdate();
-			
+
 			if (updateCount == 1) {
 				ResultSet keysResult = stmt.getGeneratedKeys();
-				
-				sql = "insert into film_category (film_id, category_id) "
-						+ "values(last_insert_id(), 1)";
-				
+
+				sql = "insert into film_category (film_id, category_id) " + "values(last_insert_id(), 1)";
+
 				stmt = conn.prepareStatement(sql);
 				updateCount += stmt.executeUpdate();
-				
+
 				if (updateCount == 2) {
 					if (keysResult.next()) {
 						newFilmId = keysResult.getInt(1);
 						film.setId(newFilmId);
 					}
 				}
-			}
-			
-			
-			
-			 else {
+			} else {
 				film = null;
 			}
 			conn.commit();
@@ -505,25 +496,23 @@ public class FilmDAOImpl implements FilmDAO {
 			}
 			throw new RuntimeException("Error inserting film " + film);
 
-		} 
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException sqleClose) {
-				sqleClose.printStackTrace();
+		}
+		try {
+			if (stmt != null) {
+				stmt.close();
 			}
-		
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException sqleClose) {
+			sqleClose.printStackTrace();
+		}
 
 		return film;
 	}
 
-	
 	/*
-	 * *********************************
+	 * ********************************* 
 	 * Not yet complete!!!!!
 	 * *********************************
 	 */
@@ -579,26 +568,25 @@ public class FilmDAOImpl implements FilmDAO {
 
 		return true;
 	}
-	
+
 	/*
-	 * *********************************
+	 * ********************************* 
 	 * Not yet complete!!!!!
 	 * *********************************
 	 */
 	public boolean updateFilm(Film film) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		
+
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
 			String sql = "UPDATE film set title=?, description=?, release_year=?, language_id=?, "
 					+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=?, rating=?, "
-					+ "special_features=?"
-					+ "WHERE id = ?";
-			
+					+ "special_features=?" + "WHERE id = ?";
+
 			stmt = conn.prepareStatement(sql);
-			
+
 			stmt.setString(1, film.getTitle());
 			stmt.setString(2, film.getDescription());
 			stmt.setShort(3, film.getReleaseYear());
@@ -610,18 +598,17 @@ public class FilmDAOImpl implements FilmDAO {
 			stmt.setString(9, film.getRating());
 			stmt.setString(10, film.getSpecialFeatures());
 			stmt.setInt(11, film.getId());
-			
+
 			int updateCount = stmt.executeUpdate();
-			if(updateCount == 1) {
-				
-				
+			if (updateCount == 1) {
+
 				conn.commit();
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
-			
+
 		}
-		
+
 		return true;
 	}
 
