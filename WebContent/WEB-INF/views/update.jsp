@@ -18,12 +18,12 @@
 			<label for="releaseYear">Release Year:</label> <input type="text" name="releaseYear" size="4" value="${film.releaseYear }"><br> 
 			<label for="languageId">Language ID:</label> 
 				<select>
-				  <option value="1">1: English</option>
-				  <option value="2">2: Italian</option>
-				  <option value="3">3: Japanese</option>
-				  <option value="4">4: Mandarin</option>
-				  <option value="5">5: French</option>
-				  <option value="6">6: German</option>
+				  <option value=1>1: English</option>
+				  <option value=2>2: Italian</option>
+				  <option value=3>3: Japanese</option>
+				  <option value=4>4: Mandarin</option>
+				  <option value=5>5: French</option>
+				  <option value=6>6: German</option>
 				</select><br>
 			<label for="rentalDuration">Rental Duration:</label> <input type="text" name="rentalDuration" size="4" value="${film.rentalDuration }"><br> 
 			<label for="rentalRate">Rental Rate:</label> <input type="text" name="rentalRate" value="${film.rentalRate }"><br> 

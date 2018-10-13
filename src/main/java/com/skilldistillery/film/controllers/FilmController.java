@@ -43,6 +43,7 @@ public class FilmController {
 
 	@RequestMapping(path = "NewFilm.do", method = RequestMethod.POST)
 	public String newFilm(Film f, RedirectAttributes redir) {
+		f.setLanguageId(1); // default to English
 		Film myFilm = filmDAO.addFilm(f);
 
 		if (myFilm == null) {
@@ -87,22 +88,15 @@ public class FilmController {
 
 	@RequestMapping(path = "UpdateFilm.do", params = "filmId", method = RequestMethod.POST)
 	public String updateFilm(int filmId, Film f) {
-		/*
-		 * Film myFilm = filmDAO.addFilm(f);
-		 * 
-		 * if (myFilm == null) { redir.addFlashAttribute("newFilmFailure",
-		 * "Failed to add the new Film"); } else { redir.addFlashAttribute("film",
-		 * myFilm); }
-		 */
 		f.setId(filmId);
-		System.out.println(f);
+		System.out.println(f.getLanguageId());
+		//f.setLanguageId(1);
 		boolean updateSucceeded = filmDAO.updateFilm(f);
-		System.out.println(f);
 
 		if (updateSucceeded) {
-			System.out.println("Party time!");
+			System.out.println("It worked!");
 		} else {
-			System.out.println("Ha ha ha fuck you");
+			System.out.println("It failed!");
 		}
 
 		return "redirect:filmUpdated.do";
