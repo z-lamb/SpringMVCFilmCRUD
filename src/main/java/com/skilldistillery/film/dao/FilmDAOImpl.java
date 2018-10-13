@@ -600,6 +600,7 @@ public class FilmDAOImpl implements FilmDAO {
 			if (updateCount == 1) {
 				conn.commit();
 			}
+			System.out.println(film);
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 			if (conn != null) {
