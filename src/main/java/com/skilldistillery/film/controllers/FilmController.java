@@ -72,7 +72,7 @@ public class FilmController {
 		} else {
 			deleteMessage = "Could not delete the film " + f.getTitle() + "(id " + f.getId() + ")";
 		}
-		mv.addObject("deletedNotification", deleteMessage);
+		mv.addObject("deleteMessage", deleteMessage);
 		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
 	}
