@@ -21,8 +21,10 @@ public class FilmController {
 
 	@RequestMapping(path = "GetFilmData.do", params = "filmId", method = RequestMethod.GET)
 	public ModelAndView getFilmById(int filmId) {
+		System.out.println("*****************************************************"+ filmId);
 		ModelAndView mv = new ModelAndView();
 		Film f = filmDAO.getFilmById(filmId);
+		System.out.println("*****************************************************"+ f);
 		mv.addObject("film", f);
 		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
@@ -38,8 +40,8 @@ public class FilmController {
 
 	@RequestMapping(path = "filmAdded.do", method = RequestMethod.POST)
 	public String newFilm(Film f, RedirectAttributes redir) {
-		filmDAO.addFilm(f);
-		redir.addFlashAttribute("film", f);
+		Film myFilm = filmDAO.addFilm(f);
+		redir.addFlashAttribute("film", myFilm);
 		return "redirect:filmAdded.do";
 	}
 
