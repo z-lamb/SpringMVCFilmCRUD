@@ -537,7 +537,7 @@ public class FilmDAOImpl implements FilmDAO {
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "delete from film where id = ?";
+			String sql = "DELETE FROM film WHERE id = ?";
 
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
@@ -558,13 +558,57 @@ public class FilmDAOImpl implements FilmDAO {
 
 		} finally {
 			try {
-				stmt.close();
-				conn.close();
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException sqleClose) {
 				sqleClose.printStackTrace();
 			}
 		}
 
+		return true;
+	}
+	
+	public boolean updateFilm(Film film) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+			conn.setAutoCommit(false);
+			String sql = "UPDATE film set title=?, description=?, release_year=?, language_id=?, "
+					+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=?, rating=?, "
+					+ "special_features=?"
+					+ "WHERE id = ?";
+			
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setShort(3, film.getReleaseYear());
+			stmt.setInt(4, film.getLanguageId());
+			stmt.setInt(5, film.getRentalDuration());
+			stmt.setDouble(6, film.getRentalRate());
+			stmt.setInt(7, film.getLength());
+			stmt.setDouble(8, film.getReplacementCost());
+			stmt.setString(9, film.getRating());
+			stmt.setString(10, film.getSpecialFeatures());
+			stmt.setInt(11, film.getId());
+			
+			int updateCount = stmt.executeUpdate();
+			if(updateCount == 1) {
+				
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return true;
 	}
 
