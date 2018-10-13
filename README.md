@@ -1,4 +1,5 @@
 ## Spring MVC Film C.R.U.D. Project
+#### Created By Henry, Newel, Zachary Lamb
 
 ### Summary
 This program allows a user to look up movies from a database. It was created after week 7 of the bootcamp. This project included much of the work from the previous project but incorporated web functionality. We also did this project as a group project as a group of three. The project used many new technologies to use that we learned during week 7. Some of these include Spring Tools Suite, MySQLWorkbench, and Gradle. We learned many different things which was helpful in connecting all the dots of how everything works together. Something else that was new was collaborating together on one project in GitHub. It was a great learning experience in making sure we were not working on the same file as to not cause merge conflicts. 
