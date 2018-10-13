@@ -26,6 +26,9 @@
 				<li><strong>Release Year:</strong> ${film.releaseYear}</li>
 				<li><strong>Rating:</strong> ${film.rating}</li>
 			</ul>
+			<form action="UpdateFilm.do?filmId=${film.id}" method="post">
+				<input type="submit" value="Update">
+			</form>
 			<form action="DeleteFilm.do?filmId=${film.id}" method="post">
 				<input type="submit" value="Delete">
 			</form>
