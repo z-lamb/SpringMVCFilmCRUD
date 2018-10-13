@@ -10,8 +10,9 @@
 	<div>
 		<h3>Search by Film ID</h3>
 		<form action="GetFilmData.do" method="get">
-			<label for="filmId">ID: </label> <input type="text" name="filmId"
-				size="5"><br> <input type="submit" value="Search">
+			<label for="filmId">ID: </label> 
+			<input type="text" name="filmId" size="5"><br> 
+			<input type="submit" value="Search">
 		</form>
 	</div>
 
@@ -19,9 +20,9 @@
 	<div>
 		<h3>Search by Keyword</h3>
 		<form action="GetFilmData.do" method="get">
-			<label for="filmKeyword">Keyword: </label> <input type="text"
-				name="filmKeyword"><br> <input type="submit"
-				value="Search">
+			<label for="filmKeyword">Keyword: </label> 
+			<input type="text" name="filmKeyword"><br> 
+			<input type="submit" value="Search">
 		</form>
 	</div>
 
@@ -54,13 +55,17 @@
 				  <option value="R">R</option>
 				  <option value="NC17">NC 17</option>
 				</select><br>
-			<label for="specialFeatures">Special Features:</label> 
-				<select multiple>
+			<label for="specialFeatures">Special Features:</label><br>
+ 				<select multiple>
 				  <option value="Trailers">Trailers</option>
 				  <option value="Commentaries">Commentaries</option>
 				  <option value="DeletedScenes">Deleted Scenes</option>
 				  <option value="BehindTheScenes">Behind The Scenes</option>
-				</select><br>
+				</select><br> 
+				 <!-- <input type="checkbox" name="trailer" value="trailer" /><label>Trailer</label><br>
+				 <input type="checkbox" name="commentaries" value="commentaries" /><label>Commentaries</label><br>
+				 <input type="checkbox" name="deleted" value="deleted" /><label>Deleted Scenes</label><br>
+				 <input type="checkbox" name="behind" value="behind" /><label>Behind the Scenes</label><br> -->
 			<input type="submit" value="Add">
 		</form>
 	</div>

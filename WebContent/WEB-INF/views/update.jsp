@@ -38,12 +38,12 @@
 				  <option value="NC17">NC 17</option>
 				</select><br>
 			<label for="specialFeatures">Special Features:</label> 
-				<select>
+				 <select multiple>
 				  <option value="Trailers">Trailers</option>
 				  <option value="Commentaries">Commentaries</option>
 				  <option value="DeletedScenes">Deleted Scenes</option>
 				  <option value="BehindTheScenes">Behind The Scenes</option>
-				</select><br>
+				</select><br> 
 			<input type="submit" value="Update">
 		</form>
 
