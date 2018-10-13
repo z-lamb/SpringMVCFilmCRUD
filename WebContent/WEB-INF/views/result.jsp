@@ -35,6 +35,7 @@
 				<li><strong>Special Features:</strong> ${film.specialFeatures}</li>
 			</ul>
 						
+
 			<form action="FilmUpdatePage.do?filmId=${film.id}" method="post">
 				<input type="submit" value="Edit">
 			</form>
