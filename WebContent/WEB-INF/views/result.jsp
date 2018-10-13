@@ -13,8 +13,11 @@
 	<h3>Film Detail</h3>
 	<c:choose>
 		<c:when test="${! empty deleteMessage }">
-			${deleteMessage }
+			<c:out value="${deleteMessage}" />					
 		</c:when>
+		<c:when test="${! empty newFilmFailure }">
+			<c:out value="${newFilmFailure }" />
+		</c:when> 
 		<c:when test="${! empty film}">
 			<ul>
 				<li><strong>ID:</strong> ${film.id}</li>
@@ -23,9 +26,9 @@
 				<li><strong>Release Year:</strong> ${film.releaseYear}</li>
 				<li><strong>Rating:</strong> ${film.rating}</li>
 			</ul>
-				<form action="DeleteFilm.do?filmId=${film.id}" method="post">
-					<input type="submit" value="Delete">
-				</form>
+			<form action="DeleteFilm.do?filmId=${film.id}" method="post">
+				<input type="submit" value="Delete">
+			</form>
 		</c:when>
 		<c:when test="${! empty films }">
 			<ul>
@@ -35,15 +38,14 @@
 					<li><strong>Description:</strong> ${f.description}</li>
 					<li><strong>Release Year:</strong> ${f.releaseYear}</li>
 					<li><strong>Rating:</strong> ${f.rating}</li>
+					<form action="DeleteFilm.do?filmId=${f.id}" method="post">
+						<input type="submit" value="Delete">
+					</form>
 					<br>
 				</c:forEach>
 			</ul>
-				<form action="DeleteFilm.do?filmId=${f.id}" method="post">
-					<input type="submit" value="Delete">
-				</form>
 		</c:when>
-		
-		
+
 		<c:otherwise>
 			<p>NO FILM FOUND</p>
 		</c:otherwise>
