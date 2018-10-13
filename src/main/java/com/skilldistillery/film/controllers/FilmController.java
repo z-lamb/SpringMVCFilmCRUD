@@ -29,7 +29,7 @@ public class FilmController {
 		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "GetFilmData.do", params = "filmKeyword", method = RequestMethod.GET)
 	public ModelAndView getFilmsByKeyword(String filmKeyword) {
 		ModelAndView mv = new ModelAndView();
@@ -60,13 +60,19 @@ public class FilmController {
 		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
 	}
-	
-	@RequestMapping(path = "DeleteFilm.do", params="filmId", method = RequestMethod.POST)
+
+	@RequestMapping(path = "DeleteFilm.do", params = "filmId", method = RequestMethod.POST)
 	public ModelAndView deleteFilm(int filmId) {
 		Film f = filmDAO.getFilmById(filmId);
 		boolean deleteSucceeded = filmDAO.deleteFilm(f);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("index.html");
+		String deleteMessage;
+		if (deleteSucceeded) {
+			deleteMessage = "You successfully deleted the film " + f.getTitle() + "(id " + f.getId() + ")";
+		} else {
+			deleteMessage = "Could not delete the film " + f.getTitle() + "(id " + f.getId() + ")";
+		}
+		mv.addObject("deletedNotification", deleteMessage);
 		return mv;
 	}
 }
