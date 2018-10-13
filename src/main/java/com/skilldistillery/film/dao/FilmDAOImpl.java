@@ -277,10 +277,12 @@ public class FilmDAOImpl implements FilmDAO {
 			 */
 			String sql = "SELECT film.id, film.title, film.description, film.release_year, "
 					+ "language.name, film.rental_duration, film.rental_rate, film.length, "
-					+ "film.replacement_cost, film.rating, film.special_features, category.name " + "FROM film "
+					+ "film.replacement_cost, film.rating, film.special_features, category.name " 
+					+ "FROM film "
 					+ "JOIN language ON language.id = film.language_id "
 					+ "JOIN film_category ON film.id = film_category.film_id "
-					+ "JOIN category ON film_category.category_id = category.id " + "WHERE title "
+					+ "JOIN category ON film_category.category_id = category.id " 
+					+ "WHERE title "
 					+ "LIKE ? OR description LIKE ?";
 
 			stmt = conn.prepareStatement(sql);
@@ -519,6 +521,12 @@ public class FilmDAOImpl implements FilmDAO {
 		return film;
 	}
 
+	
+	/*
+	 * *********************************
+	 * Not yet complete!!!!!
+	 * *********************************
+	 */
 	@Override
 	public boolean deleteFilm(Film film) {
 		/*
@@ -572,6 +580,11 @@ public class FilmDAOImpl implements FilmDAO {
 		return true;
 	}
 	
+	/*
+	 * *********************************
+	 * Not yet complete!!!!!
+	 * *********************************
+	 */
 	public boolean updateFilm(Film film) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -602,11 +615,11 @@ public class FilmDAOImpl implements FilmDAO {
 			if(updateCount == 1) {
 				
 				
-				
+				conn.commit();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			
 		}
 		
 		return true;
