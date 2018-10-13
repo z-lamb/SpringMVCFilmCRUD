@@ -50,7 +50,13 @@ public class FilmController {
 	@RequestMapping(path = "filmAdded.do", method = RequestMethod.POST)
 	public String newFilm(Film f, RedirectAttributes redir) {
 		Film myFilm = filmDAO.addFilm(f);
-		redir.addFlashAttribute("film", myFilm);
+
+		if (myFilm == null) {
+			redir.addFlashAttribute("newFilmFailure", "Failed to add the new Film");
+		} else {
+			redir.addFlashAttribute("film", myFilm);
+		}
+		
 		return "redirect:filmAdded.do";
 	}
 
