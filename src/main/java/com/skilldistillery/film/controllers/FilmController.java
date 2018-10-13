@@ -34,8 +34,8 @@ public class FilmController {
 	public ModelAndView getFilmsByKeyword(String filmKeyword) {
 		ModelAndView mv = new ModelAndView();
 		List<Film> films = filmDAO.getFilmsByKeyword(filmKeyword);
-		mv.addObject("film", films);
-		mv.setViewName("WEB-INF/views/result.jsp");
+		mv.addObject("films", films);
+		System.out.println(films);
 		return mv;
 	}
 
