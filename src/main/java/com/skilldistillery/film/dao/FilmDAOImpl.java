@@ -511,11 +511,7 @@ public class FilmDAOImpl implements FilmDAO {
 		return film;
 	}
 
-	/*
-	 * ********************************* 
-	 * Not yet complete!!!!!
-	 * *********************************
-	 */
+	
 	@Override
 	public boolean deleteFilm(Film film) {
 		/*
@@ -534,8 +530,13 @@ public class FilmDAOImpl implements FilmDAO {
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "DELETE FROM film WHERE id = ?";
-
+			String sql = "DELETE FROM film_category WHERE film_id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, film.getId());
+			stmt.executeUpdate();
+			stmt.close();
+			
+			sql = "DELETE FROM film WHERE id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
 			stmt.executeUpdate();
@@ -569,11 +570,7 @@ public class FilmDAOImpl implements FilmDAO {
 		return true;
 	}
 
-	/*
-	 * ********************************* 
-	 * Not yet complete!!!!!
-	 * *********************************
-	 */
+	
 	public boolean updateFilm(Film film) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -601,12 +598,20 @@ public class FilmDAOImpl implements FilmDAO {
 
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
-
 				conn.commit();
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
-
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e) {
+					System.err.println("Error trying to rollback");
+					e.printStackTrace();
+				}
+			}
+			
+			return false;
 		}
 
 		return true;
