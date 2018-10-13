@@ -20,6 +20,17 @@
         <li><strong>Rating:</strong> ${film.rating}</li>
       </ul>
     </c:when>
+    <c:when test="${! empty films }">
+    	<ul>
+    		<c:forEach var="f" items="${films }">
+    		    <li><strong>ID:</strong> ${f.id}</li>
+		        <li><strong>Title:</strong> ${f.title}</li>
+		        <li><strong>Description:</strong> ${f.description}</li>
+		        <li><strong>Release Year:</strong> ${f.releaseYear}</li>
+		        <li><strong>Rating:</strong> ${f.rating}</li>
+    		</c:forEach>
+    	</ul>
+    </c:when>
     <c:otherwise>
       <p>NO FILM FOUND</p>
     </c:otherwise>
