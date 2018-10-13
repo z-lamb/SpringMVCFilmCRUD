@@ -40,14 +40,6 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "NewFilm.do", method = RequestMethod.POST)
-	public ModelAndView newFilm(Film f) {
-		filmDAO.addFilm(f);
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("WEB-INF/views/result.jsp");
-		return mv;
-	}
-
-	@RequestMapping(path = "filmAdded.do", method = RequestMethod.POST)
 	public String newFilm(Film f, RedirectAttributes redir) {
 		Film myFilm = filmDAO.addFilm(f);
 
