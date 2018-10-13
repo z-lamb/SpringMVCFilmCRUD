@@ -51,7 +51,14 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new film object After that has finished it will close the
 			 * Prepared Statement and connection and return the film object
 			 */
-			String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating, film.special_features, category.name FROM film JOIN language ON language.id = film.language_id JOIN film_category ON film.id = film_category.film_id JOIN category ON film_category.category_id = category.id WHERE film.id = ?";
+			String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, "
+					+ "film.rental_duration, film.rental_rate, film.length, film.replacement_cost, "
+					+ "film.rating, film.special_features, category.name " 
+					+ "FROM film "
+					+ "JOIN language ON language.id = film.language_id "
+					+ "JOIN film_category ON film.id = film_category.film_id "
+					+ "JOIN category ON film_category.category_id = category.id " 
+					+ "WHERE film.id = ?";
 
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
@@ -64,14 +71,17 @@ public class FilmDAOImpl implements FilmDAO {
 				film.setConditionList(getFilmConditionByFilmId(filmId));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		finally {
 			try {
-				stmt.close();
-				conn.close();
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -103,7 +113,7 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new actor object After that has finished it will close
 			 * the Prepared Statement and connection and return the actor object
 			 */
-			String sql = "SELECT id, first_name, last_name FROM actor WHERE id = ?";
+			String sql = "SELECT id, first_name, last_name " + "FROM actor " + "WHERE id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, actorId);
 			ResultSet actorResult = stmt.executeQuery();
@@ -116,14 +126,16 @@ public class FilmDAOImpl implements FilmDAO {
 				actor.setFilms(getFilmsByActorId(actorId));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
-				stmt.close();
-				conn.close();
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -153,7 +165,8 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new actor object After that has finished it will close
 			 * the Prepared Statement and connection and return the actor list object
 			 */
-			String sql = "SELECT actor.id, actor.first_name, actor.last_name FROM actor JOIN film_actor ON actor.id = film_actor.actor_id WHERE film_id = ?";
+			String sql = "SELECT actor.id, actor.first_name, actor.last_name " + "FROM actor "
+					+ "JOIN film_actor ON actor.id = film_actor.actor_id " + "WHERE film_id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet rs = stmt.executeQuery();
@@ -167,14 +180,16 @@ public class FilmDAOImpl implements FilmDAO {
 				actors.add(actor);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
-				stmt.close();
-				conn.close();
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -203,7 +218,13 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new film object After that has finished it will close the
 			 * Prepared Statement and connection and return the film list object
 			 */
-			String sql = "SELECT film.id, title, description, release_year, language.name, rental_duration, rental_rate, length, replacement_cost, rating, special_features, category.name FROM film JOIN film_actor ON film.id = film_actor.film_id JOIN language ON language.id = film.language_id JOIN film_category ON film.id = film_category.film_id JOIN category ON film_category.category_id = category.id WHERE actor_id = ?";
+			String sql = "SELECT film.id, title, description, release_year, language.name, "
+					+ "rental_duration, rental_rate, length, replacement_cost, rating, "
+					+ "special_features, category.name " + "FROM film "
+					+ "JOIN film_actor ON film.id = film_actor.film_id "
+					+ "JOIN language ON language.id = film.language_id "
+					+ "JOIN film_category ON film.id = film_category.film_id "
+					+ "JOIN category ON film_category.category_id = category.id " + "WHERE actor_id = ?";
 
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, actorId);
@@ -215,14 +236,16 @@ public class FilmDAOImpl implements FilmDAO {
 				films.add(film);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
-				stmt.close();
-				conn.close();
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -252,7 +275,13 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new film object After that has finished it will close the
 			 * Prepared Statement and connection and return the film list object
 			 */
-			String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating, film.special_features, category.name FROM film JOIN language ON language.id = film.language_id JOIN film_category ON film.id = film_category.film_id JOIN category ON film_category.category_id = category.id WHERE title LIKE ? OR description LIKE ?";
+			String sql = "SELECT film.id, film.title, film.description, film.release_year, "
+					+ "language.name, film.rental_duration, film.rental_rate, film.length, "
+					+ "film.replacement_cost, film.rating, film.special_features, category.name " + "FROM film "
+					+ "JOIN language ON language.id = film.language_id "
+					+ "JOIN film_category ON film.id = film_category.film_id "
+					+ "JOIN category ON film_category.category_id = category.id " + "WHERE title "
+					+ "LIKE ? OR description LIKE ?";
 
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, "%" + keyword + "%");
@@ -270,8 +299,12 @@ public class FilmDAOImpl implements FilmDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				stmt.close();
-				conn.close();
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -283,13 +316,23 @@ public class FilmDAOImpl implements FilmDAO {
 	 * Method to get Film Condition By Film Id
 	 */
 	@Override
-	public List<Film> getFilmConditionByFilmId(int filmId) throws SQLException {
+	public List<Film> getFilmConditionByFilmId(int filmId) {
 
 		/*
 		 * Connection to the database and create new object to be returned
 		 */
 		List<Film> conditionList = new ArrayList<>();
-		Connection conn = DriverManager.getConnection(URL, user, pass);
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = null;
+		ResultSet conditionResult = null;
+		Film condition = null;
+
+		try {
+			conn = DriverManager.getConnection(URL, user, pass);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		/*
 		 * SQL strings to be passed to the prepared statement along with the requested
@@ -297,58 +340,92 @@ public class FilmDAOImpl implements FilmDAO {
 		 * each item requested to a new film object After that has finished it will
 		 * close the Prepared Statement and connection and return the film list object
 		 */
-		String sql = "SELECT COUNT(media_condition) from inventory_item where media_condition = \"new\" AND film_id = ?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, filmId);
-		ResultSet conditionResult = stmt.executeQuery();
-		if (conditionResult.next()) {
-			Film condition = new Film();
-			condition.setNumberOfNew(conditionResult.getInt("Count(media_condition)"));
-			conditionList.add(condition);
+
+		try {
+			sql = "SELECT COUNT(media_condition) " + "FROM inventory_item "
+					+ "WHERE media_condition = \"new\" AND film_id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			conditionResult = stmt.executeQuery();
+			if (conditionResult.next()) {
+				condition = new Film();
+				condition.setNumberOfNew(conditionResult.getInt("Count(media_condition)"));
+				conditionList.add(condition);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-		sql = "SELECT COUNT(media_condition) from inventory_item where media_condition = \"used\" AND film_id = ?";
-		stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, filmId);
-		conditionResult = stmt.executeQuery();
-		if (conditionResult.next()) {
-			Film condition = new Film();
-			condition.setNumberOfUsed(conditionResult.getInt("Count(media_condition)"));
-			conditionList.add(condition);
+		try {
+			sql = "SELECT COUNT(media_condition) " + "FROM inventory_item "
+					+ "WHERE media_condition = \"used\" AND film_id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			conditionResult = stmt.executeQuery();
+			if (conditionResult.next()) {
+				condition = new Film();
+				condition.setNumberOfUsed(conditionResult.getInt("Count(media_condition)"));
+				conditionList.add(condition);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-		sql = "SELECT COUNT(media_condition) from inventory_item where media_condition = \"damaged\" AND film_id = ?";
-		stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, filmId);
-		conditionResult = stmt.executeQuery();
-		if (conditionResult.next()) {
-			Film condition = new Film();
-			condition.setNumberOfDamaged(conditionResult.getInt("Count(media_condition)"));
-			conditionList.add(condition);
+		try {
+			sql = "SELECT COUNT(media_condition) " + "FROM inventory_item "
+					+ "WHERE media_condition = \"damaged\" AND film_id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			conditionResult = stmt.executeQuery();
+			if (conditionResult.next()) {
+				condition = new Film();
+				condition.setNumberOfDamaged(conditionResult.getInt("Count(media_condition)"));
+				conditionList.add(condition);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-		sql = "SELECT COUNT(media_condition) from inventory_item where media_condition = \"lost\" AND film_id = ?";
-		stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, filmId);
-		conditionResult = stmt.executeQuery();
-		if (conditionResult.next()) {
-			Film condition = new Film();
-			condition.setNumberOfLost(conditionResult.getInt("Count(media_condition)"));
-			conditionList.add(condition);
+		try {
+			sql = "SELECT COUNT(media_condition) " + "FROM inventory_item "
+					+ "WHERE media_condition = \"lost\" AND film_id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			conditionResult = stmt.executeQuery();
+			if (conditionResult.next()) {
+				condition = new Film();
+				condition.setNumberOfLost(conditionResult.getInt("Count(media_condition)"));
+				conditionList.add(condition);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-		sql = "SELECT COUNT(media_condition) from inventory_item where media_condition = \"NA\" AND film_id = ?";
-		stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, filmId);
-		conditionResult = stmt.executeQuery();
-		if (conditionResult.next()) {
-			Film condition = new Film();
-			condition.setNumberOfNA(conditionResult.getInt("Count(media_condition)"));
-			conditionList.add(condition);
+		try {
+			sql = "SELECT COUNT(media_condition) " + "FROM inventory_item "
+					+ "WHERE media_condition = \"NA\" AND film_id = ?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, filmId);
+			conditionResult = stmt.executeQuery();
+			if (conditionResult.next()) {
+				condition = new Film();
+				condition.setNumberOfNA(conditionResult.getInt("Count(media_condition)"));
+				conditionList.add(condition);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-		stmt.close();
-		conn.close();
+		try {
+			if (stmt != null) {
+				stmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return conditionList;
 	}
 
@@ -371,9 +448,9 @@ public class FilmDAOImpl implements FilmDAO {
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "insert into film (title, description, release_year, language_id, "
+			String sql = "INSERT INTO film (title, description, release_year, language_id, "
 					+ "rental_duration, rental_rate, length, replacement_cost, rating, special_features)"
-					+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -389,23 +466,30 @@ public class FilmDAOImpl implements FilmDAO {
 			stmt.setString(10, film.getSpecialFeatures());
 
 			int updateCount = stmt.executeUpdate();
+			
 			if (updateCount == 1) {
 				ResultSet keysResult = stmt.getGeneratedKeys();
-				if (keysResult.next()) {
-					newFilmId = keysResult.getInt(1);
-					film.setId(newFilmId);
+				
+				sql = "insert into film_category (film_id, category_id) "
+						+ "values(last_insert_id(), 1)";
+				
+				stmt = conn.prepareStatement(sql);
+				updateCount += stmt.executeUpdate();
+				
+				if (updateCount == 2) {
+					if (keysResult.next()) {
+						newFilmId = keysResult.getInt(1);
+						film.setId(newFilmId);
+					}
 				}
-			} else {
+			}
+			
+			
+			
+			 else {
 				film = null;
 			}
 			conn.commit();
-			
-			//remove code begin
-			System.out.println("**********"+ getFilmById(newFilmId));
-			System.out.println("**********"+ newFilmId);
-			//remove code begin
-			
-			
 
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -417,16 +501,20 @@ public class FilmDAOImpl implements FilmDAO {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error inserting film" + film);
+			throw new RuntimeException("Error inserting film " + film);
 
-		} finally {
+		} 
 			try {
-				stmt.close();
-				conn.close();
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException sqleClose) {
 				sqleClose.printStackTrace();
 			}
-		}
+		
 
 		return film;
 	}
