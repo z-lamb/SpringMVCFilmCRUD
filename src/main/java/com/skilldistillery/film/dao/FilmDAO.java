@@ -24,4 +24,6 @@ public interface FilmDAO {
 
 	public Film addFilm(Film film);
 
+	public boolean updateFilm(Film film);
+
 }
