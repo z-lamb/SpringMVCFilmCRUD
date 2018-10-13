@@ -464,7 +464,7 @@ public class FilmDAOImpl implements FilmDAO {
 			stmt.setString(10, film.getSpecialFeatures());
 
 			int updateCount = stmt.executeUpdate();
-
+			
 			if (updateCount == 1) {
 				ResultSet keysResult = stmt.getGeneratedKeys();
 
@@ -486,6 +486,7 @@ public class FilmDAOImpl implements FilmDAO {
 
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
+			film = null;
 			if (conn != null) {
 				try {
 					conn.rollback();
@@ -494,7 +495,6 @@ public class FilmDAOImpl implements FilmDAO {
 					System.err.println("Error trying to rollback");
 				}
 			}
-			throw new RuntimeException("Error inserting film " + film);
 
 		}
 		try {
