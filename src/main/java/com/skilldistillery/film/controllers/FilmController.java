@@ -76,42 +76,26 @@ public class FilmController {
 		mv.setViewName("WEB-INF/views/result.jsp");
 		return mv;
 	}
-	
-	@RequestMapping(path = "FilmUpdatePage.do", params = "filmId", method = RequestMethod.POST)
-	public ModelAndView filmUpdatePage(int filmId) {
+
+	@RequestMapping(path = "FilmUpdatePage.do", method = RequestMethod.POST)
+	public ModelAndView filmUpdatePage(@RequestParam int filmId,
+			@RequestParam(value="title") String title,
+			@RequestParam(value="description") String description,
+			@RequestParam(value="releaseYear") short releaseYear,
+			@RequestParam(value="languageId") int languageId,
+			@RequestParam(value="rentalDuration") int rentalDuration,
+			@RequestParam(value="rentalRate") double rentalRate,
+			@RequestParam(value="length") int length, 
+			@RequestParam(value="replacementCost") double replacementCost,
+			@RequestParam(value="rating") String rating,
+			@RequestParam(value="specialFeatures") String specialFeatures) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/views/update.jsp");
-		mv.addObject("film", filmDAO.getFilmById(filmId));
 		return mv;
 	}
 
-	@RequestMapping(path = "UpdateFilm.do", params = "filmId", method = RequestMethod.POST)
-	public String updateFilm(int filmId, @RequestParam Map<String, String> allRequestParams, RedirectAttributes redir) {
-		try {
-			//Film f = filmDAO.getFilmById(Integer.parseInt(allRequestParams.get("id")));
-			Film f = filmDAO.getFilmById(filmId);
-			f.setTitle(allRequestParams.get("title"));
-			f.setDescription(allRequestParams.get("description"));
-			f.setReleaseYear(Short.parseShort(allRequestParams.get("releaseYear")));
-			f.setLanguageId(Integer.parseInt(allRequestParams.get("languageId")));
-			f.setRentalDuration(Integer.parseInt(allRequestParams.get("rentalDuration")));
-			f.setRentalRate(Double.parseDouble(allRequestParams.get("rentalRate")));
-			f.setLength(Integer.parseInt(allRequestParams.get("length")));
-			f.setReplacementCost(Double.parseDouble(allRequestParams.get("replacementCost")));
-			f.setRating(allRequestParams.get("rating"));
-			f.setSpecialFeatures(allRequestParams.get("specialFeatures"));
-			f.setCategory(allRequestParams.get("category"));
-			f.setNumberOfNew(Integer.parseInt(allRequestParams.get("numberOfNew")));
-			f.setNumberOfUsed(Integer.parseInt(allRequestParams.get("numberOfUsed")));
-			f.setNumberOfDamaged(Integer.parseInt(allRequestParams.get("numberOfDamaged")));
-			f.setNumberOfLost(Integer.parseInt(allRequestParams.get("numberOfLost")));
-			f.setNumberOfNA(Integer.parseInt(allRequestParams.get("numberOfNA")));
-			filmDAO.updateFilm(f);
-			redir.addFlashAttribute("film", filmDAO.getFilmById(filmId));
-		} catch (NumberFormatException e) {
-			redir.addFlashAttribute("updateMessage", "Failed to update the film");
-		}
-
+	@RequestMapping(path = "UpdateFilm.do", method = RequestMethod.POST)
+	public String updateFilm(int filmId, RedirectAttributes redir) {
 		return "redirect:filmUpdated.do";
 	}
 
