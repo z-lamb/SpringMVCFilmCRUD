@@ -78,14 +78,15 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "FilmUpdatePage.do", params = "filmId", method = RequestMethod.POST)
-	public String filmUpdatePage(int filmId, RedirectAttributes redir) {
-		Film f = filmDAO.getFilmById(filmId);
-		redir.addFlashAttribute("film", f);
-		return "redirect:UpdateFilm.do";
+	public ModelAndView filmUpdatePage(int filmId) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/views/update.jsp");
+		mv.addObject("film", filmDAO.getFilmById(filmId));
+		return mv;
 	}
 
 	@RequestMapping(path = "UpdateFilm.do", params = "filmId", method = RequestMethod.POST)
-	public String updateFilm(int filmId, Film f, RedirectAttributes redir) {
+	public String updateFilm(int filmId, Film f) {
 		/*
 		 * Film myFilm = filmDAO.addFilm(f);
 		 * 
@@ -94,7 +95,9 @@ public class FilmController {
 		 * myFilm); }
 		 */
 		f.setId(filmId);
+		System.out.println(f);
 		boolean updateSucceeded = filmDAO.updateFilm(f);
+		System.out.println(f);
 
 		if (updateSucceeded) {
 			System.out.println("Party time!");
