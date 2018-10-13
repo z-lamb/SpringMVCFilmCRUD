@@ -511,11 +511,7 @@ public class FilmDAOImpl implements FilmDAO {
 		return film;
 	}
 
-	/*
-	 * ********************************* 
-	 * Not yet complete!!!!!
-	 * *********************************
-	 */
+	
 	@Override
 	public boolean deleteFilm(Film film) {
 		/*
@@ -574,11 +570,7 @@ public class FilmDAOImpl implements FilmDAO {
 		return true;
 	}
 
-	/*
-	 * ********************************* 
-	 * Not yet complete!!!!!
-	 * *********************************
-	 */
+	
 	public boolean updateFilm(Film film) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -606,12 +598,20 @@ public class FilmDAOImpl implements FilmDAO {
 
 			int updateCount = stmt.executeUpdate();
 			if (updateCount == 1) {
-
 				conn.commit();
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
-
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException e) {
+					System.err.println("Error trying to rollback");
+					e.printStackTrace();
+				}
+			}
+			
+			return false;
 		}
 
 		return true;
