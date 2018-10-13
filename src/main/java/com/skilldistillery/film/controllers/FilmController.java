@@ -66,6 +66,6 @@ public class FilmController {
 		Film f = filmDAO.getFilmById(filmId);
 		boolean deleteSucceeded = filmDAO.deleteFilm(f);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("index.html");
+		mv.setViewName("WEB-INF/index.html");
 	}
 }
