@@ -40,7 +40,7 @@
 			</form>
 			<form action="DeleteFilm.do?filmId=${film.id}" method="post">
 				<input type="submit" value="Delete">
-			</form>
+			</form> 
 		</c:when>
 		<c:when test="${! empty films }">
 			<ul>
@@ -61,7 +61,7 @@
 					</form>
 					<form action="DeleteFilm.do?filmId=${f.id}" method="post">
 						<input type="submit" value="Delete">
-					</form>
+					</form> 
 					<br>
 				</c:forEach>
 			</ul>
