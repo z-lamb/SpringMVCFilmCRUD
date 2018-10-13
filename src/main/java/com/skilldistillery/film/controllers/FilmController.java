@@ -68,9 +68,9 @@ public class FilmController {
 		ModelAndView mv = new ModelAndView();
 		String deleteMessage;
 		if (deleteSucceeded) {
-			deleteMessage = "You successfully deleted the film " + f.getTitle() + "(id " + f.getId() + ")";
+			deleteMessage = "You successfully deleted the film " + f.getTitle() + " (id " + f.getId() + ")";
 		} else {
-			deleteMessage = "Could not delete the film " + f.getTitle() + "(id " + f.getId() + ")";
+			deleteMessage = "Could not delete the film " + f.getTitle() + " (id " + f.getId() + ")";
 		}
 		mv.addObject("deleteMessage", deleteMessage);
 		mv.setViewName("WEB-INF/views/result.jsp");
