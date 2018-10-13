@@ -87,71 +87,22 @@ public class FilmController {
 	}
 
 	@RequestMapping(path = "UpdateFilm.do", params = "filmId", method = RequestMethod.POST)
-	public String updateFilm(int filmId, Film f) {
+	public String updateFilm(int filmId, Film f, RedirectAttributes redir) {
 		f.setId(filmId);
 		System.out.println(f.getLanguageId());
 		//f.setLanguageId(1);
 		boolean updateSucceeded = filmDAO.updateFilm(f);
-
+		
+		// Change this to display problems
 		if (updateSucceeded) {
 			System.out.println("It worked!");
 		} else {
 			System.out.println("It failed!");
 		}
-
+		
+		redir.addFlashAttribute("film", f);
 		return "redirect:filmUpdated.do";
 	}
-	/*
-	 * @RequestMapping(path = "FilmUpdatePage.do", method = RequestMethod.POST)
-	 * public ModelAndView filmUpdatePage(@RequestParam int filmId,
-	 * 
-	 * @RequestParam(value="title") String title,
-	 * 
-	 * @RequestParam(value="description") String description,
-	 * 
-	 * @RequestParam(value="releaseYear") short releaseYear,
-	 * 
-	 * @RequestParam(value="languageId") int languageId,
-	 * 
-	 * @RequestParam(value="rentalDuration") int rentalDuration,
-	 * 
-	 * @RequestParam(value="rentalRate") double rentalRate,
-	 * 
-	 * @RequestParam(value="length") int length,
-	 * 
-	 * @RequestParam(value="replacementCost") double replacementCost,
-	 * 
-	 * @RequestParam(value="rating") String rating,
-	 * 
-	 * @RequestParam(value="specialFeatures") String specialFeatures) { ModelAndView
-	 * mv = new ModelAndView(); mv.setViewName("WEB-INF/views/update.jsp"); return
-	 * mv; }
-	 */
-	/*
-	 * @RequestMapping(path = "UpdateFilm.do", method = RequestMethod.POST) public
-	 * String updateFilm(@RequestParam(value="filmId") int filmId,
-	 * 
-	 * @RequestParam(value="title") String title,
-	 * 
-	 * @RequestParam(value="description") String description,
-	 * 
-	 * @RequestParam(value="releaseYear") short releaseYear,
-	 * 
-	 * @RequestParam(value="languageId") int languageId,
-	 * 
-	 * @RequestParam(value="rentalDuration") int rentalDuration,
-	 * 
-	 * @RequestParam(value="rentalRate") double rentalRate,
-	 * 
-	 * @RequestParam(value="length") int length,
-	 * 
-	 * @RequestParam(value="replacementCost") double replacementCost,
-	 * 
-	 * @RequestParam(value="rating") String rating,
-	 * 
-	 * @RequestParam(value="specialFeatures") String specialFeatures) { return
-	 * "redirect:filmUpdated.do"; }
-	 */
 
 	@RequestMapping("filmUpdated.do")
 	public ModelAndView filmUpdated() {
