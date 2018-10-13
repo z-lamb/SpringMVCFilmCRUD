@@ -275,7 +275,15 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new film object After that has finished it will close the
 			 * Prepared Statement and connection and return the film list object
 			 */
-			String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, film.rental_duration, film.rental_rate, film.length, film.replacement_cost, film.rating, film.special_features, category.name FROM film JOIN language ON language.id = film.language_id JOIN film_category ON film.id = film_category.film_id JOIN category ON film_category.category_id = category.id WHERE title LIKE ? OR description LIKE ?";
+			String sql = "SELECT film.id, film.title, film.description, film.release_year, "
+					+ "language.name, film.rental_duration, film.rental_rate, film.length, "
+					+ "film.replacement_cost, film.rating, film.special_features, category.name " 
+					+ "FROM film "
+					+ "JOIN language ON language.id = film.language_id "
+					+ "JOIN film_category ON film.id = film_category.film_id "
+					+ "JOIN category ON film_category.category_id = category.id " 
+					+ "WHERE title "
+					+ "LIKE ? OR description LIKE ?";
 
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, "%" + keyword + "%");
