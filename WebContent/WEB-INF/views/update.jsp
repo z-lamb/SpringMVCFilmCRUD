@@ -17,7 +17,7 @@
 			<label for="description">Description:</label> <input type="text" name="description" value="${film.description }"><br> 
 			<label for="releaseYear">Release Year:</label> <input type="text" name="releaseYear" size="4" value="${film.releaseYear }"><br> 
 			<label for="languageId">Language ID:</label> 
-				<select>
+				<select name="languageId">
 				  <option value=1>1: English</option>
 				  <option value=2>2: Italian</option>
 				  <option value=3>3: Japanese</option>
@@ -30,7 +30,7 @@
 			<label for="length">Length:</label> <input type="text" name="length" size="4" value="${film.length }"><br> 
 			<label for="replacementCost">Replacement Cost:</label> <input type="text" name="replacementCost" value="${film.replacementCost }"><br> 
 			<label for="rating">Rating:</label> 
-				<select>
+				<select name="Rating">
 				  <option value="G">G</option>
 				  <option value="PG">PG</option>
 				  <option value="PG13">PG 13</option>
@@ -38,7 +38,7 @@
 				  <option value="NC17">NC 17</option>
 				</select><br>
 			<label for="specialFeatures">Special Features:</label> 
-				 <select multiple>
+				 <select name="specialFeatures" multiple>
 				  <option value="Trailers">Trailers</option>
 				  <option value="Commentaries">Commentaries</option>
 				  <option value="DeletedScenes">Deleted Scenes</option>
