@@ -31,12 +31,11 @@ public class FilmController {
 	}
 	
 	@RequestMapping(path = "GetFilmData.do", params = "filmKeyword", method = RequestMethod.GET)
-	public ModelAndView getFilmsByKeyword(String keyword) {
+	public ModelAndView getFilmsByKeyword(String filmKeyword) {
 		ModelAndView mv = new ModelAndView();
-		List<Film> films = filmDAO.getFilmsByKeyword(keyword);
+		List<Film> films = filmDAO.getFilmsByKeyword(filmKeyword);
 		mv.addObject("film", films);
 		mv.setViewName("WEB-INF/views/result.jsp");
-		System.out.println("lekwhgrlhwkglkheglewkheflkhe");
 		return mv;
 	}
 
