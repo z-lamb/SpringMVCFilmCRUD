@@ -112,10 +112,10 @@ public class FilmController {
 	
 	@RequestMapping(path="GetActorData.do", params="actorId", method=RequestMethod.GET)
 	public ModelAndView getActorById(int actorId) {
-		Actor a = filmDAO.getActorById(actorId);
 		ModelAndView mv = new ModelAndView();
+		Actor a = filmDAO.getActorById(actorId);
 		mv.addObject("actor", a);
-//		mv.setViewName(viewName);
+		mv.setViewName("actorResult");
 		return mv;
 	}
 

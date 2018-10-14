@@ -120,7 +120,7 @@ public class FilmDAOImpl implements FilmDAO {
 				actor = new Actor();
 				actor.setId(actorResult.getInt("id"));
 				actor.setFirstName(actorResult.getString("first_name"));
-				actor.setFirstName(actorResult.getString("last_name"));
+				actor.setLastName(actorResult.getString("last_name"));
 				actor.setFilms(getFilmsByActorId(actorId));
 			}
 		} catch (SQLException e) {
