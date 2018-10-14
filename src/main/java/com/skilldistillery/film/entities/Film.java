@@ -7,6 +7,7 @@ public class Film {
 	/*
 	 * Private Film fields
 	 */
+	
 	private int id;
 	private String title;
 	private String description;
