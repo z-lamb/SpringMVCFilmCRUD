@@ -16,44 +16,22 @@
 	<c:choose>
 		<c:when test="${! empty actor }">
 			<ul>
-				<li><strong>ID: </strong> ${actor.id }</li>
+				<li><strong>Actor ID: </strong> ${actor.id }</li>
 				<li><strong>First Name: </strong> ${actor.firstName }</li>
 				<li><strong>Last Name: </strong> ${actor.lastName }</li>
 			</ul>
-		</c:when>
-		<%-- <c:when test="${! empty deleteMessage }">
-			<c:out value="${deleteMessage}" />					
-		</c:when>
-		<c:when test="${! empty newFilmFailure }">
-			<c:out value="${newFilmFailure }" />
-		</c:when> 
-		<c:when test="${! empty film}">
-			<ul>
-				<li><strong>ID:</strong> ${film.id}</li>
-				<li><strong>Title:</strong> ${film.title}</li>
-				<li><strong>Description:</strong> ${film.description}</li>
-				<li><strong>Release Year:</strong> ${film.releaseYear}</li>
-				<li><strong>Language:</strong> ${film.languageId}</li>
-				<li><strong>Rental Duration:</strong> ${film.rentalDuration}</li>
-				<li><strong>Rental Rate:</strong> ${film.rentalRate}</li>
-				<li><strong>Length:</strong> ${film.length}</li>
-				<li><strong>Replacement Cost:</strong> ${film.replacementCost}</li>
-				<li><strong>Rating:</strong> ${film.rating}</li>
-				<li><strong>Special Features:</strong> ${film.specialFeatures}</li>
-			</ul>
-						
-
-			<form action="FilmUpdatePage.do?filmId=${film.id}" method="post">
-				<input type="submit" value="Edit">
+			<form action="GetFilmsByActorId.do?actorId=${actor.id}" method="post">
+				<input type="submit" value="List Films by Actor">
 			</form>
-			<form action="DeleteFilm.do?filmId=${film.id}" method="post">
-				<input type="submit" value="Delete">
-			</form> 
 		</c:when>
 		<c:when test="${! empty films }">
 			<ul>
+				<li><strong>Actor ID: </strong> ${actor.id }</li>
+				<li><strong>First Name: </strong> ${actor.firstName }</li>
+				<li><strong>Last Name: </strong> ${actor.lastName }</li>
 				<c:forEach var="f" items="${films }">
-					<li><strong>ID:</strong> ${f.id}</li>
+					<hr>
+					<li><strong>Film ID:</strong> ${f.id}</li>
 					<li><strong>Title:</strong> ${f.title}</li>
 					<li><strong>Description:</strong> ${f.description}</li>
 					<li><strong>Release Year:</strong> ${f.releaseYear}</li>
@@ -64,17 +42,9 @@
 					<li><strong>Replacement Cost:</strong> ${f.replacementCost}</li>
 					<li><strong>Rating:</strong> ${f.rating}</li>
 					<li><strong>Special Features:</strong> ${f.specialFeatures}</li>
-					<form action="UpdateFilm.do?filmId=${f.id}" method="post">
-						<input type="submit" value="Edit">
-					</form>
-					<form action="DeleteFilm.do?filmId=${f.id}" method="post">
-						<input type="submit" value="Delete">
-					</form> 
-					<br>
 				</c:forEach>
 			</ul>
-		</c:when>  --%>
-
+		</c:when>
 		<c:otherwise>
 			<p>NO ACTOR FOUND</p>
 		</c:otherwise>

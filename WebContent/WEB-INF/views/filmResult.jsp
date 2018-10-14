@@ -15,11 +15,11 @@
 	<h3>Film Detail</h3>
 	<c:choose>
 		<c:when test="${! empty deleteMessage }">
-			<c:out value="${deleteMessage}" />					
+			<c:out value="${deleteMessage}" />
 		</c:when>
 		<c:when test="${! empty newFilmFailure }">
 			<c:out value="${newFilmFailure }" />
-		</c:when> 
+		</c:when>
 		<c:when test="${! empty film}">
 			<ul>
 				<li><strong>ID:</strong> ${film.id}</li>
@@ -33,15 +33,33 @@
 				<li><strong>Replacement Cost:</strong> ${film.replacementCost}</li>
 				<li><strong>Rating:</strong> ${film.rating}</li>
 				<li><strong>Special Features:</strong> ${film.specialFeatures}</li>
+				<li><strong>Actors:</strong>
+					<ul>
+						<c:forEach var="a" items="${film.actors }">
+							<hr>
+							<li><strong>Actor ID: </strong> ${a.id }</li>
+							<li><strong>First Name: </strong> ${a.firstName }</li>
+							<li><strong>Last Name: </strong> ${a.lastName }</li>
+						</c:forEach>
+					</ul>
+				</li>
+				<li><strong>Condition:</strong>
+					<ul>
+						<li><strong>Number of new:</strong> ${numberOfNew }</li>
+						<li><strong>Number of used:</strong> ${numberOfUsed }</li>
+						<li><strong>Number of damaged:</strong> ${numberOfDamaged }</li>
+						<li><strong>Number of lost:</strong> ${numberOfLost }</li>
+						<li><strong>Number of N/A:</strong> ${numberOfNA }</li>
+					</ul>
+				</li>
 			</ul>
-						
 
 			<form action="FilmUpdatePage.do?filmId=${film.id}" method="post">
-				<input type="submit" value="Edit">
+				<input type="submit" value="Edit" />
 			</form>
 			<form action="DeleteFilm.do?filmId=${film.id}" method="post">
-				<input type="submit" value="Delete">
-			</form> 
+				<input type="submit" value="Delete" />
+			</form>
 		</c:when>
 		<c:when test="${! empty films }">
 			<ul>
@@ -57,12 +75,31 @@
 					<li><strong>Replacement Cost:</strong> ${f.replacementCost}</li>
 					<li><strong>Rating:</strong> ${f.rating}</li>
 					<li><strong>Special Features:</strong> ${f.specialFeatures}</li>
+					<li><strong>Actors:</strong>
+					<ul>
+						<c:forEach var="a" items="${f.actors }">
+							<hr>
+							<li><strong>Actor ID: </strong> ${a.id }</li>
+							<li><strong>First Name: </strong> ${a.firstName }</li>
+							<li><strong>Last Name: </strong> ${a.lastName }</li>
+						</c:forEach>
+					</ul>
+				</li>
+				<li><strong>Condition:</strong>
+					<ul>
+						<li><strong>Number of new:</strong> ${numberOfNew }</li>
+						<li><strong>Number of used:</strong> ${numberOfUsed }</li>
+						<li><strong>Number of damaged:</strong> ${numberOfDamaged }</li>
+						<li><strong>Number of lost:</strong> ${numberOfLost }</li>
+						<li><strong>Number of N/A:</strong> ${numberOfNA }</li>
+					</ul>
+				</li>
 					<form action="UpdateFilm.do?filmId=${f.id}" method="post">
 						<input type="submit" value="Edit">
 					</form>
 					<form action="DeleteFilm.do?filmId=${f.id}" method="post">
 						<input type="submit" value="Delete">
-					</form> 
+					</form>
 					<br>
 				</c:forEach>
 			</ul>
