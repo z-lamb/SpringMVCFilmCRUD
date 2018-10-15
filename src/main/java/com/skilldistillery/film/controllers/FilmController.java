@@ -27,11 +27,13 @@ public class FilmController {
 		ModelAndView mv = new ModelAndView();
 		Film f = filmDAO.getFilmById(filmId);
 		mv.addObject("film", f);
-		mv.addObject("numberOfNew", f.getConditionList().get(0).getNumberOfNew());
-		mv.addObject("numberOfUsed", f.getConditionList().get(1).getNumberOfUsed());
-		mv.addObject("numberOfUsed", f.getConditionList().get(2).getNumberOfLost());
-		mv.addObject("numberOfLost", f.getConditionList().get(3).getNumberOfDamaged());
-		mv.addObject("numberOfNA", f.getConditionList().get(4).getNumberOfNA());
+		if (f != null) {
+			mv.addObject("numberOfNew", f.getConditionList().get(0).getNumberOfNew());
+			mv.addObject("numberOfUsed", f.getConditionList().get(1).getNumberOfUsed());
+			mv.addObject("numberOfUsed", f.getConditionList().get(2).getNumberOfLost());
+			mv.addObject("numberOfLost", f.getConditionList().get(3).getNumberOfDamaged());
+			mv.addObject("numberOfNA", f.getConditionList().get(4).getNumberOfNA());
+		}
 		mv.setViewName("filmResult");
 		return mv;
 	}
