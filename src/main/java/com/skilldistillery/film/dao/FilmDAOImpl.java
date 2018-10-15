@@ -13,11 +13,17 @@ import com.skilldistillery.film.entities.Film;
 public class FilmDAOImpl implements FilmDAO {
 
 	/*
-	 * Database address, username, password
+	 * Database address, username, password, private fields
 	 */
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false";
 	private static final String user = "student";
 	private static final String pass = "student";
+	private Film film = null;
+	private Actor actor = null;	
+	private Connection conn = null;	
+	private PreparedStatement stmt = null;	
+	private String sql;
+	
 	/*
 	 * Driver to connect to the database
 	 */
@@ -35,13 +41,6 @@ public class FilmDAOImpl implements FilmDAO {
 	@Override
 	public Film getFilmById(int filmId) {
 
-		/*
-		 * Connection to the database and create new reference to a film object to be
-		 * returned
-		 */
-		Film film = null;
-		Connection conn = null;
-		PreparedStatement stmt = null;
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 
@@ -51,7 +50,7 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new film object After that has finished it will close the
 			 * Prepared Statement and connection and return the film object
 			 */
-			String sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, "
+			sql = "SELECT film.id, film.title, film.description, film.release_year, language.name, "
 					+ "film.rental_duration, film.rental_rate, film.length, film.replacement_cost, "
 					+ "film.rating, film.special_features, category.name " + "FROM film "
 					+ "JOIN language ON language.id = film.language_id "
@@ -94,14 +93,6 @@ public class FilmDAOImpl implements FilmDAO {
 	@Override
 	public Actor getActorById(int actorId) {
 
-		/*
-		 * Connection to the database and create new reference an actor object to be
-		 * returned
-		 */
-		Actor actor = null;
-		Connection conn = null;
-		PreparedStatement stmt = null;
-
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 
@@ -111,7 +102,7 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new actor object After that has finished it will close
 			 * the Prepared Statement and connection and return the actor object
 			 */
-			String sql = "SELECT id, first_name, last_name " + "FROM actor " + "WHERE id = ?";
+			sql = "SELECT id, first_name, last_name " + "FROM actor " + "WHERE id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, actorId);
 			ResultSet actorResult = stmt.executeQuery();
@@ -151,8 +142,6 @@ public class FilmDAOImpl implements FilmDAO {
 		 * Connection to the database and create new object to be returned
 		 */
 		List<Actor> actors = new ArrayList<>();
-		Connection conn = null;
-		PreparedStatement stmt = null;
 
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
@@ -163,14 +152,14 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new actor object After that has finished it will close
 			 * the Prepared Statement and connection and return the actor list object
 			 */
-			String sql = "SELECT actor.id, actor.first_name, actor.last_name " + "FROM actor "
+			sql = "SELECT actor.id, actor.first_name, actor.last_name " + "FROM actor "
 					+ "JOIN film_actor ON actor.id = film_actor.actor_id " + "WHERE film_id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, filmId);
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Actor actor = new Actor();
+				actor = new Actor();
 				actor.setId(rs.getInt("id"));
 				actor.setFirstName(rs.getString("first_name"));
 				actor.setLastName(rs.getString("last_name"));
@@ -204,8 +193,6 @@ public class FilmDAOImpl implements FilmDAO {
 		 * Connection to the database and create new object to be returned
 		 */
 		List<Film> films = new ArrayList<>();
-		Connection conn = null;
-		PreparedStatement stmt = null;
 
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
@@ -216,7 +203,7 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new film object After that has finished it will close the
 			 * Prepared Statement and connection and return the film list object
 			 */
-			String sql = "SELECT film.id, title, description, release_year, language.name, "
+			sql = "SELECT film.id, title, description, release_year, language.name, "
 					+ "rental_duration, rental_rate, length, replacement_cost, rating, "
 					+ "special_features, category.name " + "FROM film "
 					+ "JOIN film_actor ON film.id = film_actor.film_id "
@@ -261,8 +248,6 @@ public class FilmDAOImpl implements FilmDAO {
 		 * Connection to the database and create new object to be returned
 		 */
 		List<Film> films = new ArrayList<>();
-		Connection conn = null;
-		PreparedStatement stmt = null;
 
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
@@ -273,7 +258,7 @@ public class FilmDAOImpl implements FilmDAO {
 			 * item requested to a new film object After that has finished it will close the
 			 * Prepared Statement and connection and return the film list object
 			 */
-			String sql = "SELECT film.id, film.title, film.description, film.release_year, "
+			sql = "SELECT film.id, film.title, film.description, film.release_year, "
 					+ "language.name, film.rental_duration, film.rental_rate, film.length, "
 					+ "film.replacement_cost, film.rating, film.special_features, category.name " + "FROM film "
 					+ "JOIN language ON language.id = film.language_id "
@@ -287,7 +272,7 @@ public class FilmDAOImpl implements FilmDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Film film = new Film();
+				film = new Film();
 				film = setFilmObject(film, rs);
 				film.setActors(getActorsByFilmId(rs.getInt("id")));
 				film.setConditionList(getFilmConditionByFilmId(rs.getInt("id")));
@@ -320,9 +305,6 @@ public class FilmDAOImpl implements FilmDAO {
 		 * Connection to the database and create new object to be returned
 		 */
 		List<Film> conditionList = new ArrayList<>();
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		String sql = null;
 		ResultSet conditionResult = null;
 		Film condition = null;
 
@@ -433,8 +415,6 @@ public class FilmDAOImpl implements FilmDAO {
 		 * Connection to the database and create new reference to a film object to be
 		 * returned
 		 */
-		Connection conn = null;
-		PreparedStatement stmt = null;
 		int newFilmId = 0;
 
 		/*
@@ -446,7 +426,7 @@ public class FilmDAOImpl implements FilmDAO {
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "INSERT INTO film (title, description, release_year, language_id, "
+			sql = "INSERT INTO film (title, description, release_year, language_id, "
 					+ "rental_duration, rental_rate, length, replacement_cost, rating, special_features)"
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -514,12 +494,7 @@ public class FilmDAOImpl implements FilmDAO {
 	
 	@Override
 	public boolean deleteFilm(Film film) {
-		/*
-		 * Connection to the database and create new reference to a film object to be
-		 * returned
-		 */
-		Connection conn = null;
-		PreparedStatement stmt = null;
+		
 
 		/*
 		 * SQL string to be passed to the prepared statement along with the requested ID
@@ -530,7 +505,7 @@ public class FilmDAOImpl implements FilmDAO {
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "DELETE FROM film_category WHERE film_id = ?";
+			sql = "DELETE FROM film_category WHERE film_id = ?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, film.getId());
 			stmt.executeUpdate();
@@ -572,13 +547,11 @@ public class FilmDAOImpl implements FilmDAO {
 
 	@Override
 	public boolean updateFilm(Film film) {
-		Connection conn = null;
-		PreparedStatement stmt = null;
 
 		try {
 			conn = DriverManager.getConnection(URL, user, pass);
 			conn.setAutoCommit(false);
-			String sql = "UPDATE film set title=?, description=?, release_year=?, language_id=?, "
+			sql = "UPDATE film set title=?, description=?, release_year=?, language_id=?, "
 					+ "rental_duration=?, rental_rate=?, length=?, replacement_cost=?, rating=?, "
 					+ "special_features=? WHERE id = ?";
 
@@ -617,6 +590,9 @@ public class FilmDAOImpl implements FilmDAO {
 		return true;
 	}
 
+	/*
+	 * Private method that is called whenever setting a film object
+	 */
 	private Film setFilmObject(Film film, ResultSet rs) {
 		try {
 			film.setId(rs.getInt("id"));
