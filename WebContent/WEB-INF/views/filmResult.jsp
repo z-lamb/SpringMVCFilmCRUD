@@ -20,6 +20,9 @@
 		<c:when test="${! empty newFilmFailure }">
 			<c:out value="${newFilmFailure }" />
 		</c:when>
+		<c:when test="${! empty updateFilmFailure }">
+			<c:out value="${updateFilmFailure }" />
+		</c:when>
 		<c:when test="${! empty film}">
 			<ul>
 				<li><strong>ID:</strong> ${film.id}</li>

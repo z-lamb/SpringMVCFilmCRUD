@@ -94,16 +94,13 @@ public class FilmController {
 	public String updateFilm(int filmId, Film f, RedirectAttributes redir) {
 		f.setId(filmId);
 		System.out.println(f.getLanguageId());
-		//f.setLanguageId(1);
 		boolean updateSucceeded = filmDAO.updateFilm(f);
-		
-		// Change this to display problems
-		if (updateSucceeded) {
-			System.out.println("It worked!");
-		} else {
-			System.out.println("It failed!");
+
+		if (!updateSucceeded) {
+			redir.addFlashAttribute("updateFilmFailure",
+					"Failed to update the film " + f.getTitle() + " with the ID " + f.getId());
 		}
-		
+
 		redir.addFlashAttribute("film", f);
 		return "redirect:filmUpdated.do";
 	}
@@ -114,8 +111,8 @@ public class FilmController {
 		mv.setViewName("filmResult");
 		return mv;
 	}
-	
-	@RequestMapping(path="GetActorData.do", params="actorId", method=RequestMethod.GET)
+
+	@RequestMapping(path = "GetActorData.do", params = "actorId", method = RequestMethod.GET)
 	public ModelAndView getActorById(int actorId) {
 		ModelAndView mv = new ModelAndView();
 		Actor a = filmDAO.getActorById(actorId);
@@ -123,8 +120,8 @@ public class FilmController {
 		mv.setViewName("actorResult");
 		return mv;
 	}
-	
-	@RequestMapping(path="GetFilmsByActorId.do", params="actorId", method=RequestMethod.POST)
+
+	@RequestMapping(path = "GetFilmsByActorId.do", params = "actorId", method = RequestMethod.POST)
 	public ModelAndView getFilmsByActorId(int actorId) {
 		ModelAndView mv = new ModelAndView();
 		List<Film> films = filmDAO.getFilmsByActorId(actorId);
