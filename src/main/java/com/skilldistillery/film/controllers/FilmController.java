@@ -95,7 +95,6 @@ public class FilmController {
 	@RequestMapping(path = "UpdateFilm.do", params = "filmId", method = RequestMethod.POST)
 	public String updateFilm(int filmId, Film f, RedirectAttributes redir) {
 		f.setId(filmId);
-		System.out.println(f.getLanguageId());
 		boolean updateSucceeded = filmDAO.updateFilm(f);
 
 		if (!updateSucceeded) {
