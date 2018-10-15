@@ -29,13 +29,13 @@ The program has full web-based C.R.U.D. functionality using Spring MVC and the D
 #### File Breakdown
 
 FilmContoller.java:
-- Need information
+- The contoller controls the flow of information
 
 FilmDAO.java:
-- Need information
+- This is the interface for the DAO which also is what spring looks at
 
 FilmDAOImpl.java:
-- Need information
+- This is where the connection to the database happens so anything that has to happen to the database will happen here
 
 Actor.java:
 - this class is to make an Actor object
@@ -50,7 +50,7 @@ Film-servlet.xml:
 - Need information
 
 result.jsp:
-- Need information
+- Show the result to the webpage
 
 web.xml:
 - Need information
@@ -86,6 +86,9 @@ If you look up a film by id or keyword you will see one or more films as request
 - SQL queries
 - Prepared Statement
 - Result set
+- STS
+- MAMP
+- MySQLWorkbench
 
 #### Lessons Learned
 - One lesson that took some time to research how to do was to add multiple sql statements in one connection to the database. To do this though you had to execute the first statement before you could declare the second one.
@@ -93,7 +96,7 @@ If you look up a film by id or keyword you will see one or more films as request
 - Although difficult at times it was good to work on a project with other people. It was helpful for other people to bring their strengths to the group which.
 
 #### Problems/Issues
-- 
+- We had a hard time getting the update to work. The issue was making the controller retain the information that the film had and passing it on to the new page where a user could do the update.
 - We had used code from the previous project in the package com.skilldistillery.film.dao. The SQL Query for the add method had "SELECT ... FROM film JOIN film\_category ..." We had the program to that point to a greater extent. The problem came when we would add a new film but we would not be able to search for that film. We could prove that it was in the database but our website was not able to find it. It was because when we added a film we did not also add a film_category. The fix was to add a second sql statement and execute after the first one so that we could add to a different table. This solved the problem.
 - When a user would choose to list all of the movies that an actor was in the actor would not show at the top of the page but all of the films would be listed.
 
