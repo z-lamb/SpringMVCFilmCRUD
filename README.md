@@ -89,15 +89,20 @@ If you look up a film by id or keyword you will see one or more films as request
 
 #### Lessons Learned
 - One lesson that took some time to research how to do was to add multiple sql statements in one connection to the database. To do this though you had to execute the first statement before you could declare the second one.
-- List lessons learned
+- Keep things simple... One way for things to become complicated is when you make something more complicated than it needs to be.
+- Although difficult at times it was good to work on a project with other people. It was helpful for other people to bring their strengths to the group which.
 
 #### Problems/Issues
-- List issues learned
+- 
 - We had used code from the previous project in the package com.skilldistillery.film.dao. The SQL Query for the add method had "SELECT ... FROM film JOIN film\_category ..." We had the program to that point to a greater extent. The problem came when we would add a new film but we would not be able to search for that film. We could prove that it was in the database but our website was not able to find it. It was because when we added a film we did not also add a film_category. The fix was to add a second sql statement and execute after the first one so that we could add to a different table. This solved the problem.
+- When a user would choose to list all of the movies that an actor was in the actor would not show at the top of the page but all of the films would be listed.
 
 #### Things we was unable to add or incorporate
 - Test Driven Development with JUnit tests
-- More ways to access the database so that the user would have more options of seeing films from
-- I wanted to be able to have a store connect to the inventory portion to see how many and what movies are at each store location
-- I am not sure this one would be possible but a way to see how many times a movie has been rented
+- A user can add an Actor to the database
+- A user can update or delete an actor
+- A user can add an actor to a film
+- A user can choose to list all inventory items for a film
+- A user can choose to list all rentals of a film, including the customer name and location
+- Use Bootstrap to make the website look better
 - It would have been nice to allow the user to select what details of a movie they would like to see instead of a basic print out of the film or all of the details of a film
