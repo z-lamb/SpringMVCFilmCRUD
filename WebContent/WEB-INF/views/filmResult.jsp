@@ -97,7 +97,7 @@
 						<li><strong>Number of N/A:</strong> ${numberOfNA }</li>
 					</ul>
 				</li>
-					<form action="UpdateFilm.do?filmId=${f.id}" method="post">
+					<form action="FilmUpdatePage.do?filmId=${f.id}" method="post">
 						<input type="submit" value="Edit">
 					</form>
 					<form action="DeleteFilm.do?filmId=${f.id}" method="post">
